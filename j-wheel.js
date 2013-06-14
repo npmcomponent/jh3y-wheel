@@ -39,7 +39,7 @@
 						console.log('were in business');
 						var tz = Math.round( ( 120 / 2 ) / 
   							Math.tan( Math.PI / options.panels.length ) );
-						var $panelContainer = $('<div class="panel-container" style="transform: translateZ( -' + tz + 'px ) rotateY( -0deg );"></div>');
+						var $panelContainer = $('<div class="panel-container" style="transform: translateZ( -' + 61 + 'px ) rotateY( -0deg );"></div>');
 						$.each(options.panels, function (key) {
 							var degs = (360 / options.panels.length) * key;
 							var panelData = this,
@@ -54,7 +54,7 @@
 							if (panelData.value) {
 								$panel.attr('data-wheel-value', panelData.value);
 							}
-							$panel.attr('style', 'transform: rotateY(' + degs + 'deg) translateZ(' + tz + 'px)');
+							$panel.attr('style', 'transform: rotateY(' + degs + 'deg) translateZ(' + 61 + 'px)');
 							$panelContainer.append($panel);
 						});
 						$DOMElement.append($panelContainer);
