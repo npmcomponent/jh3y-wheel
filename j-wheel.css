@@ -1,5 +1,5 @@
 /*Wheel CSS*/
-.panel-container div {
+.panel {
 	display: block;
 	position: absolute;
 	width: 186px;
@@ -11,6 +11,31 @@
 	font-size: 80px;
 	font-weight: bold;
 	text-align: center;
+}
+.panel-left{
+	position: absolute;
+	top: 0px;
+	height: 100%;
+	width: 50%;
+}
+.panel-right{
+	position: absolute;
+	top: 0px;
+	left: 50%;
+	height: 100%;
+	width: 50%;
+}
+.panel-bottom{
+	position: absolute;
+	top: 50%;
+	height: 50%;
+	width: 100%;
+}
+.panel-top{
+	height: 50%;
+	width: 100%;
+	position: absolute;
+	top: 0px;
 }
 .wheel {
 	width: 210px;
