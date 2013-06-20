@@ -42,7 +42,12 @@
 					console.log('TODO: you havent implemented this technique yet');
 				} else if (options.panels) {
 					if (typeof(options.panels) === 'object' && options.panels.length > 0) {						
-						var $panelContainer = $('<div class="panel-container" style="transform: translateZ( -' + translation + 'px ) rotateY( -0deg );"></div>');
+						var $panelContainer
+						if (options.verticalAxis) {
+							$panelContainer = $('<div class="panel-container" style="transform: translateZ( -' + translation + 'px ) rotateX( -0deg );"></div>');
+						} else {
+							$panelContainer = $('<div class="panel-container" style="transform: translateZ( -' + translation + 'px ) rotateY( -0deg );"></div>');
+						}
 						$.each(options.panels, function (key) {
 							var degs = (360 / options.panels.length) * key;
 							var panelData = this,
@@ -99,17 +104,23 @@
 							console.log('bottom');
 							break;
 						case "left":
-							//blah
-							console.log('left');
+							currentRotation = currentRotation - rotationDegree;
 							break;
 						case "right":
-							//blah
-							console.log('right');
-
+							currentRotation = currentRotation + rotationDegree;
 							break;
 						default:
 							console.log('WHEELJS: NO direction defined');
 					}
+				}
+				if (options.verticalAxis) {
+					$wheel
+						.find('.panel-container')
+						.attr('style', 'transform: translateZ( -' + translation + 'px ) rotateX( -' + Math.abs(currentRotation) + 'deg );');
+				} else {
+					$wheel
+						.find('.panel-container')
+						.attr('style', 'transform: translateZ( -' + translation + 'px ) rotateY( -' + Math.abs(currentRotation) + 'deg );');
 				}
 			},
 			rollTo = function (index) {
