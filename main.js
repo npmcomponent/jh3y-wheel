@@ -1,6 +1,9 @@
 var jheytompkins = {};
 jheytompkins.wheel = (function (){
 	var $wheel = $('#wheel').wheel({});
+	var $wheelDOM = $('#wheel-container').wheel({
+		panelContainer: true
+	});
 	function init (){
 		console.log('Wheel demo initialised.');
 		$('#roller').on('click', function () {

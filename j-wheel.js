@@ -26,7 +26,7 @@
 					content: $('<div>3</div>')
 				}
 			],
-			verticalAxis: false
+			verticalAxis: true
 		},
 			$wheel = $(this.selector),
 			rotationDegree,
@@ -38,6 +38,8 @@
 					.css({'width': options.width, 'height': options.height});
 				//in here we need to iterate over the panels or panel content and put it in I think.
 				if (options.panelsContainer) {
+					//this becomes quite difficult because we can make it so the user doesn't have to do much but then we have to maybe iterate through the child elements or something
+					//and use the dom elements which are assigned panel class? maybe just find all div underneath
 					//investigate the container for divs and assign them as the panels and take any data-wheel-value attributes into consideration possibly.
 					console.log('TODO: you havent implemented this technique yet');
 				} else if (options.panels) {
@@ -63,7 +65,11 @@
 								$panel.attr('data-wheel-value', panelData.value);
 							}
 							$panel.addClass('panel');
-							$panel.attr('style', 'transform: rotateY(' + degs + 'deg) translateZ(' + translation + 'px)');
+							if (options.verticalAxis) {
+								$panel.attr('style', 'transform: rotateX(' + degs + 'deg) translateZ(' + translation + 'px)');	
+							} else {
+								$panel.attr('style', 'transform: rotateY(' + degs + 'deg) translateZ(' + translation + 'px)');
+							}
 							if (options.click) {
 								if (options.verticalAxis) {
 									// top and bottom click functionality
@@ -96,12 +102,10 @@
 				if (direction) {
 					switch(direction) {
 						case "top":
-							//blah
-							console.log('top');
+							currentRotation = currentRotation + rotationDegree;
 							break;
 						case "bottom":
-							//blah
-							console.log('bottom');
+							currentRotation = currentRotation - rotationDegree;
 							break;
 						case "left":
 							currentRotation = currentRotation - rotationDegree;
@@ -144,16 +148,19 @@
 			}
 		};
 		this.init = function() {
-			// this.speed = options.speed; MAY BE INTRODUCED LATER ON
 			this.width = options.width;
 			this.height = options.height;
 			this.currentRotation = currentRotation = 0;
-			this.rotationDegree = rotationDegree = 360 / options.panels.length;
+			var panelLength = options.panels.length;
+			if (options.panelContainer) {
+				this.find('div').length;
+			}
+			this.rotationDegree = rotationDegree = 360 / panelLength;
 			this.translation = translation = Math.round( ( options.panelWidth / 2 ) / 
-							Math.tan( Math.PI / options.panels.length ) );
+							Math.tan( Math.PI / panelLength ) );
 			createWheel($wheel);
 			if (options.mouseOver) {
-				console.log('WHEELJS: Maybe in the next version buddy.');
+				console.log('WHEELJS: Maybe mouseover in the next version buddy.');
 			}
 			return this;
 		};
