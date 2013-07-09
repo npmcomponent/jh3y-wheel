@@ -33,11 +33,13 @@
 			panelWidth,
 			translation,
 			currentRotation,
+			currentIndex,
 			createWheel = function ($DOMElement) {
 				$DOMElement.addClass('wheel')
 					.css({'width': options.width, 'height': options.height});
 				//in here we need to iterate over the panels or panel content and put it in I think.
 				if (options.panelContainer) {
+					//TODO: BUG WHEN USING DOM STRUCTURE AND PANEL CONTAINER DIV IS ALREADY IN PLACE. BREAKS SOMETHING IN JQUERY.
 					var $panelContainer
 					if ($wheel.children('div').length > 1) {
 						if (options.verticalAxis) {
@@ -191,8 +193,19 @@
 				}
 			},
 			rollTo = function (index) {
-				//TODO: rolls to a fixed value if that value is specified.
-				console.log('keep rolling rolling rolling');
+				if (currentIndex !== index) {
+					var panelContainerStyle;
+					var closingBracket = $wheel.find('[data-wheel-value=' + index + ']').attr('style').indexOf(')');
+					var rotationDegree = $wheel.find('[data-wheel-value=' + index + ']').attr('style').substr(19, closingBracket - 19);
+					if (options.verticalAxis) {
+						panelContainerStyle = "transform: translateZ( -" + translation + "px ) rotateX( -" + rotationDegree + " );"
+					} else {
+						panelContainerStyle = "transform: translateZ( -" + translation + "px ) rotateY( -" + rotationDegree + " );"
+					}
+					$wheel.find('.panel-container')
+						.attr('style', panelContainerStyle)
+					currentIndex = index;
+				}
 			};
 		options = $.extend(defaults, options);
 		this.roll = function (direction) {
@@ -214,6 +227,7 @@
 			this.width = options.width;
 			this.height = options.height;
 			this.currentRotation = currentRotation = 0;
+			this.currentIndex = currentIndex = 0;
 			var panelLength = options.panels.length;
 			if (options.panelContainer) {
 				if (this.children('div').length > 1) {

@@ -4,15 +4,28 @@
 #minutes{
 	float: left;
 }
+#seconds {
+	float: left;
+}
 #clock{
 	height: 150px;
 	overflow: hidden;
 	padding: 25px;
-	width: 450px;
+	width: 700px;
 }
 #minutes .panel{
-
+	background: grey;
 }
 #hours .panel{
-
+	background: grey;
+}
+#seconds .panel{
+	background: grey;
+}
+#clock .splitter{
+	height: 150px;
+	width: 32px;
+	font-weight: bold;
+	font-size: 100px;
+	float: left;
 }
