@@ -1,0 +1,18 @@
+#hours{
+	float: left;
+}
+#minutes{
+	float: left;
+}
+#clock{
+	height: 150px;
+	overflow: hidden;
+	padding: 25px;
+	width: 450px;
+}
+#minutes .panel{
+
+}
+#hours .panel{
+
+}
