@@ -72,16 +72,34 @@ jheytompkins.wheel = (function (){
 		if ($seconds.currentIndex !== secondsDisplay) {
 			$seconds.rollTo(secondsDisplay);
 		}
-		//this shouldn't really be in here but we will put it here anyway.
 		if (alarmSet) {
 			if (hoursDisplay === alarmTimeHours && minutesDisplay === alarmTimeMinutes) {
-				alert('WAKE UP!!!');
-				$('#hours_alarm, #minutes_alarm').val('');
-				$('.alarm-status').addClass('hide');
-				alarmSet = false;
+				var wakeUp = function () {
+					var r = confirm("WAKE UP!!!");
+					if (r === true) {
+						pico.pause();
+						$('#hours_alarm, #minutes_alarm').val('');
+						$('.alarm-status').addClass('hide');
+						alarmSet = false;
+					}
+				}
+				pico.play(sinetone(880));
+				wakeUp();
 			}
 		}
 		var time = setTimeout(function () { setClock(); }, 1000);	
+	}
+	function sinetone(freq) {
+		var phase = 0,
+		phaseStep = freq / pico.samplerate;
+		return {
+			process: function(L, R) {
+				for (var i = 0; i < L.length; i++) {
+					L[i] = R[i] = Math.sin(6.28318 * phase) * 0.25;
+					phase += phaseStep;
+				}
+			}
+		};
 	}
 	function init (){
 		setClock();
