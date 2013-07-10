@@ -37,6 +37,9 @@ jheytompkins.wheel = (function (){
 		panels: seconds,
 		click: false
 	});
+	var alarmSet = false;
+	var alarmTimeHours;
+	var alarmTimeMinutes;
 	function setClock() {
 		var date = new Date();
 		var hoursDisplay = date.getHours();
@@ -69,10 +72,36 @@ jheytompkins.wheel = (function (){
 		if ($seconds.currentIndex !== secondsDisplay) {
 			$seconds.rollTo(secondsDisplay);
 		}
+		//this shouldn't really be in here but we will put it here anyway.
+		if (alarmSet) {
+			if (hoursDisplay === alarmTimeHours && minutesDisplay === alarmTimeMinutes) {
+				alert('WAKE UP!!!');
+				$('#hours_alarm, #minutes_alarm').val('');
+				$('.alarm-status').addClass('hide');
+				alarmSet = false;
+			}
+		}
 		var time = setTimeout(function () { setClock(); }, 1000);	
 	}
 	function init (){
 		setClock();
+		$('#set').on('click', function () {
+			//need to set alarm for time
+			var hourSet = parseInt($('#hours_alarm').val(), 10);
+			var minutesSet = parseInt($('#minutes_alarm').val(), 10);
+			alarmSet = true;
+			if (hourSet < 10) {
+				alarmTimeHours = '0' + hourSet.toString();
+			} else {
+				alarmTimeHours = hourSet.toString();
+			}
+			if (minutesSet < 10) {
+				alarmTimeMinutes = '0' + minutesSet.toString();
+			} else {
+				alarmTimeMinutes = minutesSet.toString();
+			}
+			$('.alarm-status').text('Alarm set for ' + alarmTimeHours + ':' + alarmTimeMinutes + '.').removeClass('hide');
+		});
 	}
 	return {
 		init: init,

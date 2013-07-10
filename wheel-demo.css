@@ -12,6 +12,7 @@
 	overflow: hidden;
 	padding: 25px;
 	width: 700px;
+	margin: 0 auto;
 }
 #minutes .panel{
 	background: grey;
@@ -28,4 +29,15 @@
 	font-weight: bold;
 	font-size: 100px;
 	float: left;
+}
+#alarm {
+	padding: 20px;
+	margin: 0 auto;
+	width: 200px;
+}
+#alarm input{
+	width: 25px;
+}
+.hide {
+	display: none;
 }

@@ -8,7 +8,11 @@
 		var defaults = {
 			// speed: 'normal', : SPEED COULD BE INTRODUCED IF WE DO A JUMP TO VALUES
 			click: true,
+			wheelWidth: 100,
+			wheelHeight: 100,
 			panelWidth: 186,
+			panelHeight: 116,
+			size: 'medium',
 			mouseOver: false,
 			panelsContainer: false, //can be used for a DOM element that already exists containing the right structure.
 			//could be a number of ways to push content for this really, could do string or object or existing DOM element, it's a tough one.
