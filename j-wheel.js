@@ -53,9 +53,9 @@
 						$panelContainer = $wheel.children('div').first();
 						$panelContainer.addClass('panel-container');
 						if (options.verticalAxis) {
-							$panelContainer.attr('style', 'transform: translateZ( -' + translation + 'px ) rotateX( -0deg );');
+							$panelContainer.attr('style', 'transform: translateZ( -' + translation + 'px ) rotateX( -0deg ); -webkit-transform: translateZ( -' + translation + 'px ) rotateX( -0deg ); -o-transform: translateZ( -' + translation + 'px ) rotateX( -0deg );');
 						} else {
-							$panelContainer.attr('style', 'transform: translateZ( -' + translation + 'px ) rotateY( -0deg );');
+							$panelContainer.attr('style', 'transform: translateZ( -' + translation + 'px ) rotateY( -0deg ); -webkit-transform: translateZ( -' + translation + 'px ) rotateY( -0deg ); -o-transform: translateZ( -' + translation + 'px ) rotateY( -0deg );');
 						}
 					} else {
 						console.log('WHEELJS: No content to be displayed');
@@ -80,9 +80,9 @@
 							}
 							$panel.addClass('panel');
 							if (options.verticalAxis) {
-								$panel.attr('style', 'transform: rotateX(' + degs + 'deg) translateZ(' + translation + 'px)');	
+								$panel.attr('style', 'transform: rotateX(' + degs + 'deg) translateZ(' + translation + 'px); -webkit-transform: rotateX(' + degs + 'deg) translateZ(' + translation + 'px); -o-transform: rotateX(' + degs + 'deg) translateZ(' + translation + 'px);');	
 							} else {
-								$panel.attr('style', 'transform: rotateY(' + degs + 'deg) translateZ(' + translation + 'px)');
+								$panel.attr('style', 'transform: rotateY(' + degs + 'deg) translateZ(' + translation + 'px); -webkit-transform: rotateY(' + degs + 'deg) translateZ(' + translation + 'px); -o-transform: rotateY(' + degs + 'deg) translateZ(' + translation + 'px);');
 							}
 							if (options.click) {
 								if (options.verticalAxis) {
@@ -111,9 +111,9 @@
 					if (typeof(options.panels) === 'object' && options.panels.length > 0) {						
 						var $panelContainer
 						if (options.verticalAxis) {
-							$panelContainer = $('<div class="panel-container" style="transform: translateZ( -' + translation + 'px ) rotateX( -0deg );"></div>');
+							$panelContainer = $('<div class="panel-container" style="transform: translateZ( -' + translation + 'px ) rotateX( -0deg ); -webkit-transform: translateZ( -' + translation + 'px ) rotateX( -0deg ); -o-transform: translateZ( -' + translation + 'px ) rotateX( -0deg );"></div>');
 						} else {
-							$panelContainer = $('<div class="panel-container" style="transform: translateZ( -' + translation + 'px ) rotateY( -0deg );"></div>');
+							$panelContainer = $('<div class="panel-container" style="transform: translateZ( -' + translation + 'px ) rotateY( -0deg ); -webkit-transform: translateZ( -' + translation + 'px ) rotateY( -0deg ); -o-transform: translateZ( -' + translation + 'px ) rotateY( -0deg );"></div>');
 						}
 						$.each(options.panels, function (key) {
 							var degs = (360 / options.panels.length) * key;
@@ -131,9 +131,9 @@
 							}
 							$panel.addClass('panel');
 							if (options.verticalAxis) {
-								$panel.attr('style', 'transform: rotateX(' + degs + 'deg) translateZ(' + translation + 'px)');	
+								$panel.attr('style', 'transform: rotateX(' + degs + 'deg) translateZ(' + translation + 'px); -webkit-transform: rotateX(' + degs + 'deg) translateZ(' + translation + 'px); -o-transform: rotateX(' + degs + 'deg) translateZ(' + translation + 'px);');	
 							} else {
-								$panel.attr('style', 'transform: rotateY(' + degs + 'deg) translateZ(' + translation + 'px)');
+								$panel.attr('style', 'transform: rotateY(' + degs + 'deg) translateZ(' + translation + 'px); -webkit-transform: rotateY(' + degs + 'deg) translateZ(' + translation + 'px); -o-transform: rotateY(' + degs + 'deg) translateZ(' + translation + 'px);');
 							}
 							if (options.click) {
 								if (options.verticalAxis) {
@@ -185,22 +185,24 @@
 				if (options.verticalAxis) {
 					$wheel
 						.find('.panel-container')
-						.attr('style', 'transform: translateZ( -' + translation + 'px ) rotateX( -' + Math.abs(currentRotation) + 'deg );');
+						.attr('style', 'transform: translateZ( -' + translation + 'px ) rotateX( -' + Math.abs(currentRotation) + 'deg ); -webkit-transform: translateZ( -' + translation + 'px ) rotateX( -' + Math.abs(currentRotation) + 'deg ); -o-transform: translateZ( -' + translation + 'px ) rotateX( -' + Math.abs(currentRotation) + 'deg );');
 				} else {
 					$wheel
 						.find('.panel-container')
-						.attr('style', 'transform: translateZ( -' + translation + 'px ) rotateY( -' + Math.abs(currentRotation) + 'deg );');
+						.attr('style', 'transform: translateZ( -' + translation + 'px ) rotateY( -' + Math.abs(currentRotation) + 'deg ); -webkit-transform: translateZ( -' + translation + 'px ) rotateY( -' + Math.abs(currentRotation) + 'deg ); -o-transform: translateZ( -' + translation + 'px ) rotateY( -' + Math.abs(currentRotation) + 'deg );');
 				}
 			},
 			rollTo = function (index) {
 				if (currentIndex !== index) {
 					var panelContainerStyle;
 					var closingBracket = $wheel.find('[data-wheel-value=' + index + ']').attr('style').indexOf(')');
-					var rotationDegree = $wheel.find('[data-wheel-value=' + index + ']').attr('style').substr(19, closingBracket - 19);
+					//change this because it could be different dependant on browser
+					var opener = $wheel.find('[data-wheel-value=' + index + ']').attr('style').indexOf('rotate') + 8;
+					var rotationDegree = $wheel.find('[data-wheel-value=' + index + ']').attr('style').substr(opener, closingBracket - 19);
 					if (options.verticalAxis) {
-						panelContainerStyle = "transform: translateZ( -" + translation + "px ) rotateX( -" + rotationDegree + " );"
+						panelContainerStyle = "transform: translateZ( -" + translation + "px ) rotateX( -" + rotationDegree + " ); -webkit-transform: translateZ( -" + translation + "px ) rotateX( -" + rotationDegree + " ); -o-transform: translateZ( -" + translation + "px ) rotateX( -" + rotationDegree + " );"
 					} else {
-						panelContainerStyle = "transform: translateZ( -" + translation + "px ) rotateY( -" + rotationDegree + " );"
+						panelContainerStyle = "transform: translateZ( -" + translation + "px ) rotateY( -" + rotationDegree + " ); -webkit-transform: translateZ( -" + translation + "px ) rotateY( -" + rotationDegree + " ); -o-transform: translateZ( -" + translation + "px ) rotateY( -" + rotationDegree + " );"
 					}
 					$wheel.find('.panel-container')
 						.attr('style', panelContainerStyle)

@@ -39,11 +39,14 @@ jheytompkins.wheel = (function (){
 	});
 	function setClock() {
 		var date = new Date();
-		var hoursDisplay;
-		if (date.getHours() < 10) {
-			hoursDisplay = '0' + date.getHours().toString();
+		var hoursDisplay = date.getHours();
+		if (hoursDisplay > 12) {
+			hoursDisplay = hoursDisplay - 12;
+		}
+		if (hoursDisplay < 10) {
+			hoursDisplay = '0' + hoursDisplay.toString();
 		} else {
-			hoursDisplay = date.getHours().toString();
+			hoursDisplay = hoursDisplay.toString();
 		}
 		var minutesDisplay;
 		if (date.getMinutes() < 10) {
