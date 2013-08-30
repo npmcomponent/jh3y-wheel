@@ -8,10 +8,8 @@
 		var defaults = {
 			// speed: 'normal', : SPEED COULD BE INTRODUCED IF WE DO A JUMP TO VALUES
 			click: true,
-			wheelWidth: 100,
-			wheelHeight: 100,
-			panelWidth: 186,
-			panelHeight: 116,
+			wheelWidth: 210,
+			wheelHeight: 140,
 			size: 'medium',
 			mouseOver: false,
 			panelsContainer: false, //can be used for a DOM element that already exists containing the right structure.
@@ -38,24 +36,31 @@
 			translation,
 			currentRotation,
 			currentIndex,
+			$panels,
+			_bindPanelClick = function (panel) {
+				panel.addEventListener('click', function (event) {
+					roll();
+				});
+			},
 			createWheel = function ($DOMElement) {
-				$DOMElement.addClass('wheel')
-					.css({'width': options.width, 'height': options.height});
+				$DOMElement.addClass('_0-wheel')
+					.css({'width': options.wheelWidth, 'height': options.wheelHeight});
 				//in here we need to iterate over the panels or panel content and put it in I think.
 				if (options.panelContainer) {
 					//TODO: BUG WHEN USING DOM STRUCTURE AND PANEL CONTAINER DIV IS ALREADY IN PLACE. BREAKS SOMETHING IN JQUERY.
 					var $panelContainer
 					if ($wheel.children('div').length > 1) {
 						if (options.verticalAxis) {
-							$panelContainer = $('<div class="panel-container" style="transform: translateZ( -' + translation + 'px ) rotateX( -0deg );"></div>');
+							$panelContainer = $('<div class="_0-wheel-panel-container" style="transform: translateZ( -' + translation + 'px ) rotateX( -0deg );"></div>');
 						} else {
-							$panelContainer = $('<div class="panel-container" style="transform: translateZ( -' + translation + 'px ) rotateY( -0deg );"></div>');
+							$panelContainer = $('<div class="_0-wheel-panel-container" style="transform: translateZ( -' + translation + 'px ) rotateY( -0deg );"></div>');
 						}
-						var $panels = $wheel.children('div');
+						$panels = $wheel.children('div');
 						$wheel.append($panelContainer.append($panels));
 					} else if ($wheel.children().length === 1) {
 						$panelContainer = $wheel.children('div').first();
-						$panelContainer.addClass('panel-container');
+						$panelContainer.addClass('_0-wheel-panel-container');
+						$panels = $panelContainer.children('div');
 						if (options.verticalAxis) {
 							$panelContainer.attr('style', 'transform: translateZ( -' + translation + 'px ) rotateX( -0deg ); -webkit-transform: translateZ( -' + translation + 'px ) rotateX( -0deg ); -o-transform: translateZ( -' + translation + 'px ) rotateX( -0deg );');
 						} else {
@@ -82,42 +87,24 @@
 							} else if ($panel.attr('value')) {
 								$panel.attr('data-wheel-value', $panel.attr('value'));
 							}
-							$panel.addClass('panel');
+							$panel.addClass('_0-wheel-panel');
 							if (options.verticalAxis) {
 								$panel.attr('style', 'transform: rotateX(' + degs + 'deg) translateZ(' + translation + 'px); -webkit-transform: rotateX(' + degs + 'deg) translateZ(' + translation + 'px); -o-transform: rotateX(' + degs + 'deg) translateZ(' + translation + 'px);');	
 							} else {
 								$panel.attr('style', 'transform: rotateY(' + degs + 'deg) translateZ(' + translation + 'px); -webkit-transform: rotateY(' + degs + 'deg) translateZ(' + translation + 'px); -o-transform: rotateY(' + degs + 'deg) translateZ(' + translation + 'px);');
 							}
 							if (options.click) {
-								if (options.verticalAxis) {
-									// top and bottom click functionality
-									var $top = $('<div class="panel-top"></div>').on('click', function () {
-										roll('top');
-									});
-									var $bottom = $('<div class="panel-bottom"></div>').on('click', function () {
-										roll('bottom');
-									});
-									$panel.append($top, $bottom);
-								} else {
-									var $left = $('<div class="panel-left"></div>').on('click', function () {
-										roll('left');
-									});
-									var $right = $('<div class="panel-right"></div>').on('click', function () {
-										roll('right');
-									});
-									$panel.append($left, $right);
-								}
+								_bindPanelClick($panel);
 							}
-							// $panelContainer.append($panel);
 						});
 
 				} else if (options.panels) {
 					if (typeof(options.panels) === 'object' && options.panels.length > 0) {						
 						var $panelContainer
 						if (options.verticalAxis) {
-							$panelContainer = $('<div class="panel-container" style="transform: translateZ( -' + translation + 'px ) rotateX( -0deg ); -webkit-transform: translateZ( -' + translation + 'px ) rotateX( -0deg ); -o-transform: translateZ( -' + translation + 'px ) rotateX( -0deg );"></div>');
+							$panelContainer = $('<div class="_0-wheel-panel-container" style="transform: translateZ( -' + translation + 'px ) rotateX( -0deg ); -webkit-transform: translateZ( -' + translation + 'px ) rotateX( -0deg ); -o-transform: translateZ( -' + translation + 'px ) rotateX( -0deg );"></div>');
 						} else {
-							$panelContainer = $('<div class="panel-container" style="transform: translateZ( -' + translation + 'px ) rotateY( -0deg ); -webkit-transform: translateZ( -' + translation + 'px ) rotateY( -0deg ); -o-transform: translateZ( -' + translation + 'px ) rotateY( -0deg );"></div>');
+							$panelContainer = $('<div class="_0-wheel-panel-container" style="transform: translateZ( -' + translation + 'px ) rotateY( -0deg ); -webkit-transform: translateZ( -' + translation + 'px ) rotateY( -0deg ); -o-transform: translateZ( -' + translation + 'px ) rotateY( -0deg );"></div>');
 						}
 						$.each(options.panels, function (key) {
 							var degs = (360 / options.panels.length) * key;
@@ -133,31 +120,14 @@
 							if (panelData.value) {
 								$panel.attr('data-wheel-value', panelData.value);
 							}
-							$panel.addClass('panel');
+							$panel.addClass('_0-wheel-panel');
 							if (options.verticalAxis) {
 								$panel.attr('style', 'transform: rotateX(' + degs + 'deg) translateZ(' + translation + 'px); -webkit-transform: rotateX(' + degs + 'deg) translateZ(' + translation + 'px); -o-transform: rotateX(' + degs + 'deg) translateZ(' + translation + 'px);');	
 							} else {
 								$panel.attr('style', 'transform: rotateY(' + degs + 'deg) translateZ(' + translation + 'px); -webkit-transform: rotateY(' + degs + 'deg) translateZ(' + translation + 'px); -o-transform: rotateY(' + degs + 'deg) translateZ(' + translation + 'px);');
 							}
 							if (options.click) {
-								if (options.verticalAxis) {
-									// top and bottom click functionality
-									var $top = $('<div class="panel-top"></div>').on('click', function () {
-										roll('top');
-									});
-									var $bottom = $('<div class="panel-bottom"></div>').on('click', function () {
-										roll('bottom');
-									});
-									$panel.append($top, $bottom);
-								} else {
-									var $left = $('<div class="panel-left"></div>').on('click', function () {
-										roll('left');
-									});
-									var $right = $('<div class="panel-right"></div>').on('click', function () {
-										roll('right');
-									});
-									$panel.append($left, $right);
-								}
+								_bindPanelClick($panel);
 							}
 							$panelContainer.append($panel);
 						});
@@ -167,32 +137,15 @@
 					console.log('WHEELJS: ERROR, NO panels have been defined');
 				}
 			},
-			roll = function (direction) {
-				if (direction) {
-					switch(direction) {
-						case "top":
-							currentRotation = currentRotation + rotationDegree;
-							break;
-						case "bottom":
-							currentRotation = currentRotation - rotationDegree;
-							break;
-						case "left":
-							currentRotation = currentRotation - rotationDegree;
-							break;
-						case "right":
-							currentRotation = currentRotation + rotationDegree;
-							break;
-						default:
-							console.log('WHEELJS: NO direction defined');
-					}
-				}
+			roll = function () {
+				currentRotation = currentRotation + rotationDegree;
 				if (options.verticalAxis) {
 					$wheel
-						.find('.panel-container')
+						.find('._0-wheel-panel-container')
 						.attr('style', 'transform: translateZ( -' + translation + 'px ) rotateX( -' + Math.abs(currentRotation) + 'deg ); -webkit-transform: translateZ( -' + translation + 'px ) rotateX( -' + Math.abs(currentRotation) + 'deg ); -o-transform: translateZ( -' + translation + 'px ) rotateX( -' + Math.abs(currentRotation) + 'deg );');
 				} else {
 					$wheel
-						.find('.panel-container')
+						.find('._0-wheel-panel-container')
 						.attr('style', 'transform: translateZ( -' + translation + 'px ) rotateY( -' + Math.abs(currentRotation) + 'deg ); -webkit-transform: translateZ( -' + translation + 'px ) rotateY( -' + Math.abs(currentRotation) + 'deg ); -o-transform: translateZ( -' + translation + 'px ) rotateY( -' + Math.abs(currentRotation) + 'deg );');
 				}
 			},
@@ -208,14 +161,14 @@
 					} else {
 						panelContainerStyle = "transform: translateZ( -" + translation + "px ) rotateY( -" + rotationDegree + " ); -webkit-transform: translateZ( -" + translation + "px ) rotateY( -" + rotationDegree + " ); -o-transform: translateZ( -" + translation + "px ) rotateY( -" + rotationDegree + " );"
 					}
-					$wheel.find('.panel-container')
+					$wheel.find('._0-wheel-panel-container')
 						.attr('style', panelContainerStyle)
 					currentIndex = index;
 				}
 			};
 		options = $.extend(defaults, options);
-		this.roll = function (direction) {
-			roll(direction);
+		this.roll = function () {
+			roll();
 		};
 		this.rollTo = function (index) {
 			rollTo(index);
