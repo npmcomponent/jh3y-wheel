@@ -10,8 +10,6 @@
 			click: true,
 			wheelWidth: 210,
 			wheelHeight: 140,
-			panelWidth: 186,
-			panelHeight: 116,
 			size: 'medium',
 			mouseOver: false,
 			panelsContainer: false, //can be used for a DOM element that already exists containing the right structure.
@@ -34,7 +32,6 @@
 		},
 			$wheel = $(this.selector),
 			rotationDegree,
-			panelWidth,
 			translation,
 			currentRotation,
 			currentIndex,
@@ -47,17 +44,15 @@
 			createWheel = function ($DOMElement) {
 				$DOMElement.addClass('_0-wheel')
 					.css({'width': options.wheelWidth, 'height': options.wheelHeight});
-				//in here we need to iterate over the panels or panel content and put it in I think.
 				if (options.panelContainer) {
-					//TODO: BUG WHEN USING DOM STRUCTURE AND PANEL CONTAINER DIV IS ALREADY IN PLACE. BREAKS SOMETHING IN JQUERY.
 					var $panelContainer
 					if ($wheel.children('div').length > 1) {
+						$panels = $wheel.children('div');
 						if (options.verticalAxis) {
 							$panelContainer = $('<div class="_0-wheel-panel-container" style="transform: translateZ( -' + translation + 'px ) rotateX( -0deg );"></div>');
 						} else {
 							$panelContainer = $('<div class="_0-wheel-panel-container" style="transform: translateZ( -' + translation + 'px ) rotateY( -0deg );"></div>');
 						}
-						$panels = $wheel.children('div');
 						$wheel.append($panelContainer.append($panels));
 					} else if ($wheel.children().length === 1) {
 						$panelContainer = $wheel.children('div').first();
@@ -69,14 +64,12 @@
 							$panelContainer.attr('style', 'transform: translateZ( -' + translation + 'px ) rotateY( -0deg ); -webkit-transform: translateZ( -' + translation + 'px ) rotateY( -0deg ); -o-transform: translateZ( -' + translation + 'px ) rotateY( -0deg );');
 						}
 					} else {
-						console.log('WHEELJS: No content to be displayed');
+						console.log('_0.js wheel: No content to be displayed');
 					}
-					//by time we get here we have the DOM structure we just need to configure the panels and we are done.
 					$.each($panels, function (key) {
 							var degs = (360 / $panels.length) * key;
 							var panelData = this,
 								$panel;
-							// debugger;
 							if (typeof(panelData.content) === 'string') {
 								$panel = $(panelData.content);
 							} else if (typeof(panelData.content) === 'object') {
@@ -117,7 +110,7 @@
 							} else if (typeof(panelData.content) === 'object') {
 								$panel = panelData.content;
 							} else {
-								console.log('WHEELJS: ERROR, incorrect panel declaration');
+								console.log('_0.js wheel: ERROR, incorrect panel declaration');
 							}
 							if (panelData.value) {
 								$panel.attr('data-wheel-value', panelData.value);
@@ -136,7 +129,7 @@
 						$DOMElement.append($panelContainer);
 					}
 				} else {
-					console.log('WHEELJS: ERROR, NO panels have been defined');
+					console.log('_0.js wheel: ERROR, NO panels have been defined');
 				}
 			},
 			roll = function () {
@@ -181,7 +174,7 @@
 				$(this).attr('class', classes.replace(this.speed, value));
 				this.speed = value;
 			} else {
-				console.log('WHEELJS: Invalid speed ' + value + '.');
+				console.log('_0.js wheel: Invalid speed ' + value + '.');
 			}
 		};
 		this.init = function() {
@@ -204,11 +197,12 @@
 				panelLength = options.panelLength;
 			}
 			this.rotationDegree = rotationDegree = 360 / panelLength;
-			this.translation = translation = Math.round( ( options.panelWidth / 2 ) / 
+			console.log()
+			this.translation = translation = Math.round( ( (options.wheelWidth * 0.9) / 2 ) / 
 							Math.tan( Math.PI / panelLength ) );
 			createWheel($wheel);
 			if (options.mouseOver) {
-				console.log('WHEELJS: Maybe mouseover in the next version buddy.');
+				console.log('_0.js wheel: Maybe mouseover in the next version buddy.');
 			}
 			return this;
 		};
