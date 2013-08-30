@@ -10,6 +10,8 @@
 			click: true,
 			wheelWidth: 210,
 			wheelHeight: 140,
+			panelWidth: 186,
+			panelHeight: 116,
 			size: 'medium',
 			mouseOver: false,
 			panelsContainer: false, //can be used for a DOM element that already exists containing the right structure.
