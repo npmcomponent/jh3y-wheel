@@ -2,13 +2,13 @@
 ._0-wheel-panel {
 	display: block;
 	position: absolute;
-	width: 186px;
-	height: 116px;
-	left: 10px;
-	top: 10px;
+	width: 90%;
+	height: 90%;
+	left: 4%;
+	top: 4%;
 	border: 2px solid black;
-	line-height: 116px;
-	font-size: 80px;
+	line-height: 2em;
+	font-size: 4em;
 	font-weight: bold;
 	text-align: center;
 }
@@ -38,8 +38,8 @@
 	top: 0px;
 }
 ._0-wheel {
-	width: auto;
-	height: auto;
+	width: 210px;
+	height: 140px;
 	position: relative;
 	margin: 0 auto 40px;
 	border: 1px solid #CCC;
