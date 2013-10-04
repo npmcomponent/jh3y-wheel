@@ -1,7 +1,7 @@
-module.exports = Wheel;
+module.exports = wheel;
 
-function Wheel(element, options) {
-	if (!(this instanceof Wheel)) return new Wheel(element, options);
+function wheel(element, options) {
+	if (!(this instanceof wheel)) return new wheel(element, options);
 	this.element = element;
 	this.defaults = {
  		click: true,
@@ -34,7 +34,7 @@ function Wheel(element, options) {
 	this.options = options;
 	this.initialize();
 }
-Wheel.prototype.initialize = function () {
+wheel.prototype.initialize = function () {
 	function extend(a, b){
 		for(var key in b) {
 			if(b.hasOwnProperty(key)) {
@@ -91,7 +91,7 @@ Wheel.prototype.initialize = function () {
 	}
 	return this;	
 }
-Wheel.prototype.create = function () {
+wheel.prototype.create = function () {
 	var panelContainer,
 		panels,
 		degs,
@@ -181,13 +181,13 @@ Wheel.prototype.create = function () {
 		console.log('wheel: ERROR, NO panels have been defined');
 	}
 }
-Wheel.prototype._bindPanelClick = function (panel) {
+wheel.prototype._bindPanelClick = function (panel) {
 	var wheel = this;
 	panel.addEventListener('click', function (event) {
 		wheel.roll();
 	});
 }
-Wheel.prototype.roll = function () {
+wheel.prototype.roll = function () {
 	this.currentRotation = this.currentRotation + this.rotationDegree;
 	if (this.options.verticalAxis) {
 		this.element.querySelector('.wheel-panel-container').setAttribute('style', 'transform: translateZ( -' + this.translation + 'px ) rotateX( -' + Math.abs(this.currentRotation) + 'deg ); -webkit-transform: translateZ( -' + this.translation + 'px ) rotateX( -' + Math.abs(this.currentRotation) + 'deg ); -o-transform: translateZ( -' + this.translation + 'px ) rotateX( -' + Math.abs(this.currentRotation) + 'deg );');						
@@ -195,7 +195,7 @@ Wheel.prototype.roll = function () {
 		this.element.querySelector('.wheel-panel-container').setAttribute('style', 'transform: translateZ( -' + this.translation + 'px ) rotateY( -' + Math.abs(this.currentRotation) + 'deg ); -webkit-transform: translateZ( -' + this.translation + 'px ) rotateY( -' + Math.abs(this.currentRotation) + 'deg ); -o-transform: translateZ( -' + this.translation + 'px ) rotateY( -' + Math.abs(this.currentRotation) + 'deg );');
 	}
 },
-Wheel.prototype.rollTo = function (index) {
+wheel.prototype.rollTo = function (index) {
 	if (this.currentIndex !== index) {
 		this.closingBracket = this.element.querySelector('[data-wheel-value="' + index + '"]').getAttribute('style').indexOf(')');
 		this.opener = this.element.querySelector('[data-wheel-value="' + index + '"]').getAttribute('style').indexOf('rotate') + 8;
