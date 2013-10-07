@@ -1,4 +1,3 @@
-
 # wheel
 
   A simple wheel/carousel component.
@@ -32,7 +31,34 @@ Simply do as in the example.html page:
 
 ## API
 
+The following options can be used with wheel:
+		click: true / false
+		width: string px / number
+		height: string px / number
+		clip: true / false (sets an overflow hidden so that nothing is seen outside the panel container)
+		perspective: string px (experimental for setting different perspectives)
+		mouseOver: true / false (not currently supported)
+		panelsContainer: true /false (can be used for a DOM element that already exists containing the right structure.)
+		panels: JSON structure as below / jQuery object
+			[
+				{
+					value: 1,
+					content: $('<div>1</div>')
+				},
+				{
+					value: 2,
+					content: $('<div>2</div>')
+				},
+				{
+					value: 3,
+					content: $('<div>3</div>')
+				}
+			]
+		verticalAxis: true / false (sets orientation)
 
+The following methods are also available:
+	roll() : roll the wheel.
+	rollTo() : roll the wheel to a particular index.
 
 ## License
 
