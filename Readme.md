@@ -2,6 +2,10 @@
 
   A simple wheel/carousel component.
 
+## Demo
+
+A simple demo of wheel can be seen [here](http://jsfiddle.net/BDJmq/).
+
 ## Installation
 
   Install with [component(1)](http://component.io):
