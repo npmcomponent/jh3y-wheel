@@ -1,3 +1,4 @@
+;(function(){
 
 /**
  * Require the given path.
@@ -413,4 +414,10 @@ wheel.prototype.rollTo = function (index) {
 	}
 };
 });
-require.alias("wheel/index.js", "wheel/index.js");
+require.alias("wheel/index.js", "wheel/index.js");if (typeof exports == "object") {
+  module.exports = require("wheel");
+} else if (typeof define == "function" && define.amd) {
+  define(function(){ return require("wheel"); });
+} else {
+  this["jheytompkins_wheel"] = require("wheel");
+}})();

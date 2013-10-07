@@ -1,6 +1,6 @@
 # wheel
 
-  A simple wheel/carousel component.
+  A simple wheel/carousel component compatible with [component](http://component.io) package manager.
 
 ## Demo
 
@@ -12,13 +12,10 @@ A simple demo of wheel can be seen [here](http://jsfiddle.net/BDJmq/).
 
     $ component install jheytompkins/wheel
 
-## Use without component package manager
-
- If you want to use wheel without the component package manager you can by simply using [jheytompkins-wheel.js](https://github.com/jheytompkins/wheel) in your script files and by using in the same way.
 
 ## Use
 
-Simply do as in the example.html page:
+Include necessary script and style files and simply do as in the [example.html](https://github.com/jheytompkins/wheel/master/example.html) page:
 
 		//pull in wheel component code. This could be named anything in this case wheel.
 		var wheel = require('wheel');
@@ -32,6 +29,11 @@ Simply do as in the example.html page:
 			clip: false,
 			click: true
 		}); 
+
+## Use without component package manager
+
+ If you want to use wheel without the component package manager you can by simply using [jheytompkins_wheel.js](https://github.com/jheytompkins/wheel/master/jheytompkins_wheel.js) in your script files and by using in the same way.
+<!-- If you require a standalone version of the wheel component you can use the code [here](https://github.com/jheytompkins/wheel/master/jheytompkins_wheel.js) and change the naming to avoid any possible conflicts. -->
 
 ## API
 
