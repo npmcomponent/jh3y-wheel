@@ -32,6 +32,7 @@ Simply do as in the example.html page:
 ## API
 
 The following options can be used with wheel:
+
 		click: true / false
 		width: string px / number
 		height: string px / number
@@ -57,6 +58,7 @@ The following options can be used with wheel:
 		verticalAxis: true / false (sets orientation)
 
 The following methods are also available:
+
 	roll() : roll the wheel.
 	rollTo() : roll the wheel to a particular index.
 
