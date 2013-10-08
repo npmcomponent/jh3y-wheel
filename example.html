@@ -7,25 +7,28 @@
 	<script src="build/build.js"></script>
 </head>
 <body>
+	<h4>wheel</h4>
+	<p>Here is a simple wheel passing in dom elements via an option.</p>
 	<div class="myWheel"></div>
-
+	<p>Here is the same wheel just created differently by passing in an already present structure using the panelsContainer option.</p>
 	<div class="mySecondWheel">
 		<div>
 			<div>
-				1
+				A
 			</div>
 		</div>
 		<div>
 			<div>
-				2
+				B
 			</div>
 		</div>
 		<div>
 			<div>
-				3
+				C
 			</div>
 		</div>
 	</div>
+	<button>Roll first wheel.</button>
 
 	<script>
 		var panels = [],
@@ -53,6 +56,9 @@
 			height: 140,
 			clip: false,
 			click: true
+		});
+		document.querySelector('button').addEventListener('click', function () {
+			newwheel.roll();
 		});
 	</script>
 </body>

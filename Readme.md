@@ -4,7 +4,7 @@
 
 ## Demo
 
-A simple demo of wheel can be seen [here](http://jsfiddle.net/BDJmq/2/).
+A simple demo of wheel can be seen [here](http://jsfiddle.net/BDJmq/3/).
 
 ## Installation
 
@@ -45,9 +45,9 @@ Include necessary script and style files and simply do as in the [example.html](
 Alternatively with a different DOM structure such as the following example:
 
 	<div class="myWheel">
-		<div>1</div>
-		<div>2</div>
-		<div>3</div>
+		<div>A</div>
+		<div>B</div>
+		<div>C</div>
 	</div>
 
 We can create a wheel by passing in the `panelsContainer` option as `true` instead and leaving out the `panels` option.
