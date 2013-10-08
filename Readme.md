@@ -15,7 +15,7 @@ A simple demo of wheel can be seen [here](http://jsfiddle.net/BDJmq/3/).
 
 ## Use
 
-Include necessary script and style files and simply do as in the [example.html](https://github.com/jheytompkins/wheel/master/example.html) page:
+Include necessary script and style files and simply do as in the [example.html](https://github.com/jheytompkins/wheel/blob/master/example.html) page:
 
 		//here we are simply just creating some mock panels but these could already be in the DOM
 		var panels = [],
