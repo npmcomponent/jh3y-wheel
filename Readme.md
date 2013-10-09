@@ -4,7 +4,7 @@
 
 ## Demo
 
-A simple demo of wheel can be seen [here](http://jsfiddle.net/BDJmq/3/).
+A simple demo of wheel can be seen [here](http://jsfiddle.net/BDJmq/4/).
 
 ## Installation
 
