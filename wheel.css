@@ -12,31 +12,6 @@
 	font-weight: bold;
 	text-align: center;
 }
-.wheel-panel-left{
-	position: absolute;
-	top: 0px;
-	height: 100%;
-	width: 50%;
-}
-.wheel-panel-right{
-	position: absolute;
-	top: 0px;
-	left: 50%;
-	height: 100%;
-	width: 50%;
-}
-.wheel-panel-bottom{
-	position: absolute;
-	top: 50%;
-	height: 50%;
-	width: 100%;
-}
-.wheel-panel-top{
-	height: 50%;
-	width: 100%;
-	position: absolute;
-	top: 0px;
-}
 .wheel {
 	position: relative;
 	border: 1px solid #CCC;
