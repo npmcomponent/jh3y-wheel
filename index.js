@@ -10,22 +10,19 @@ function wheel(element, options) {
  		size: 'medium',
  		clip:false,
  		perspective: '100px',
- 		mouseOver: false,
+ 		swipe: false,
 		panelsContainer: false, //can be used for a DOM element that already exists containing the right structure.
 		//could be a number of ways to push content for this really, could do string or object or existing DOM element, it's a tough one.
 		// panels is no longer used as we are going to pass in variables of DOM elements and just use document.createElement and pass them in
 		//TODO: make sure we document this as it will certainly be unclear
 		panels: [
 		{
-			value: 1,
 			content: document.createElement('div')
 		},
 		{
-			value: 2,
 			content: document.createElement('div')
 		},
 		{
-			value: 3,
 			content: document.createElement('div')
 		}
 		],
@@ -33,6 +30,17 @@ function wheel(element, options) {
 	};
 	this.options = options;
 	this.initialize();
+}
+wheel.prototype._getPanels = function (container) {
+	var panels = [];
+	[].forEach.call(container.children, function (prospectivePanel){
+		if(prospectivePanel.tagName.toLowerCase() === 'div') {
+			var panel = {};
+			panel.content = prospectivePanel;
+			panels.push(panel);
+		}
+	});
+	return panels;
 }
 wheel.prototype.initialize = function () {
 	function extend(a, b){
@@ -44,26 +52,15 @@ wheel.prototype.initialize = function () {
 		return a;
 	}
 	this.options = extend(this.defaults, this.options);
-
-	this.width = this.options.width;
-	this.height = this.options.height;
 	this.currentRotation = 0;
 	this.currentIndex = 0;
 	if (this.options.panels) {
 		this.panelLength = this.options.panels.length;
 	}
 	if (this.options.panelsContainer) {
-		if (this.element.querySelectorAll('div').length > 1) {
-			this.panelLength = this.element.querySelectorAll('div').length;
-		} else if (this.element.querySelectorAll('div').length === 1) {
-			if (this.element.querySelectorAll('div')[0].querySelectorAll('div').length > 0) {
-				this.panelLength = this.element.querySelectorAll('div')[0].querySelectorAll('div').length;
-			} else {
-				this.panelLength = 1;
-			}
+		if (this._getPanels(this.element).length > 1) {
+			this.panelLength = this._getPanels(this.element).length;
 		}
-	} else if (this.options.panelLength) {
-		this.panelLength = this.options.panelLength;
 	}
 	this.rotationDegree = 360 / this.panelLength;
 	this.element.className = this.element.className + ' wheel';
@@ -86,8 +83,8 @@ wheel.prototype.initialize = function () {
 	this.translation = Math.round( ( (this.element.offsetWidth * 0.9) / 2 ) / 
 		Math.tan( Math.PI / this.panelLength ) );
 	this.create();
-	if (this.options.mouseOver) {
-		console.log('wheel: mouseover is not fully supported for the wheel component yet.');
+	if (this.options.swipe) {
+		console.log('wheel: swipe is not fully supported for the wheel component yet.');
 	}
 	return this;	
 }
@@ -97,49 +94,9 @@ wheel.prototype.create = function () {
 		degs,
 		newwheel = this;
 	if (newwheel.options.panelsContainer) {
-		panelContainer = document.createElement('div');
-		panelContainer.className = 'wheel-panel-container';
-		if (newwheel.element.querySelectorAll('div').length > 1) {
-			if (newwheel.options.verticalAxis) {
-				panelContainer.setAttribute('style', "transform: translateZ( -" + newwheel.translation + "px ) rotateX( -0deg );");
-			} else {
-				panelContainer.setAttribute('style', "transform: translateZ( -" + newwheel.translation + "px ) rotateY( -0deg );");
-			}
-			panels = newwheel.element.querySelectorAll('div');
-			[].forEach.call(panels, function(panel) {
-				panelContainer.appendChild(panel);
-			});
-			newwheel.element.appendChild(panelContainer);
-		} else if (newwheel.element.childNodes.length === 1) {
-			panelContainer = newwheel.element.querySelector('div')[0];
-			panelContainer.className = 'wheel-panel-container';
-			panels = panelContainer.querySelectorAll('div');
-			if (newwheel.options.verticalAxis) {
-				panelContainer.setAttribute('style', 'transform: translateZ( -' + newwheel.translation + 'px ) rotateX( -0deg ); -webkit-transform: translateZ( -' + newwheel.translation + 'px ) rotateX( -0deg ); -o-transform: translateZ( -' + newwheel.translation + 'px ) rotateX( -0deg );');
-			} else {
-				panelContainer.setAttribute('style', 'transform: translateZ( -' + newwheel.translation + 'px ) rotateY( -0deg ); -webkit-transform: translateZ( -' + newwheel.translation + 'px ) rotateY( -0deg ); -o-transform: translateZ( -' + newwheel.translation + 'px ) rotateY( -0deg );');
-			}
-		} else {
-			console.log('wheel: No content to be displayed');
-		}
-		[].forEach.call(panels, function (panel, key) {
-			degs = (360 / panels.length) * key;
-			if (panel.getAttribute('value')) {
-				panel.setAttribute('data-wheel-value', panel.getAttribute('value'));
-			} else {
-				panel.setAttribute('data-wheel-value', key);
-			}
-			panel.className = panel.className + ' wheel-panel';
-			if (newwheel.options.verticalAxis) {
-				panel.setAttribute('style', 'transform: rotateX(' + degs + 'deg) translateZ(' + newwheel.translation + 'px); -webkit-transform: rotateX(' + degs + 'deg) translateZ(' + newwheel.translation + 'px); -o-transform: rotateX(' + degs + 'deg) translateZ(' + newwheel.translation + 'px);');	
-			} else {
-				panel.setAttribute('style', 'transform: rotateY(' + degs + 'deg) translateZ(' + newwheel.translation + 'px); -webkit-transform: rotateY(' + degs + 'deg) translateZ(' + newwheel.translation + 'px); -o-transform: rotateY(' + degs + 'deg) translateZ(' + newwheel.translation + 'px);');
-			}
-			if (newwheel.options.click) {
-				newwheel._bindPanelClick(panel);
-			}
-		});
-	} else if (newwheel.options.panels) {
+		newwheel.options.panels = newwheel._getPanels(newwheel.element);
+	} 
+	if (newwheel.options.panels) {
 		if (typeof(newwheel.options.panels) === 'object' && newwheel.options.panels.length > 0) {						
 			panelContainer = document.createElement('div');
 			panelContainer.className = 'wheel-panel-container';
@@ -148,28 +105,24 @@ wheel.prototype.create = function () {
 			} else {
 				panelContainer.setAttribute('style', 'transform: translateZ( -' + newwheel.translation + 'px ) rotateY( -0deg ); -webkit-transform: translateZ( -' + newwheel.translation + 'px ) rotateY( -0deg ); -o-transform: translateZ( -' + newwheel.translation + 'px ) rotateY( -0deg );');
 			}
-			var panels = newwheel.options.panels;
-			[].forEach.call(panels, function (panel, key) {
-				degs = (360 / panels.length) * key;
-				panelData = panel;
+			[].forEach.call(newwheel.options.panels, function (panelData, key) {
+				var panel;
+				degs = (360 / newwheel.options.panels.length) * key;
 				if (typeof(panelData.content) === 'object') {
-					$panel = panelData.content;
+					panel = panelData.content;
 				} else {
 					console.log('wheel: ERROR, incorrect panel declaration');
 				}
-				if (panelData.value) {
-					$panel.setAttribute('data-wheel-value', panelData.value);
-				}
-				$panel.className = $panel.className + ' wheel-panel';
+				panel.setAttribute('data-wheel-value', key + 1);
+				panel.className = panel.className + ' wheel-panel';
 				if (newwheel.options.verticalAxis) {
-					$panel.setAttribute('style', 'transform: rotateX(' + degs + 'deg) translateZ(' + newwheel.translation + 'px); -webkit-transform: rotateX(' + degs + 'deg) translateZ(' + newwheel.translation + 'px); -o-transform: rotateX(' + degs + 'deg) translateZ(' + newwheel.translation + 'px);');
+					panel.setAttribute('style', 'transform: rotateX(' + degs + 'deg) translateZ(' + newwheel.translation + 'px); -webkit-transform: rotateX(' + degs + 'deg) translateZ(' + newwheel.translation + 'px); -o-transform: rotateX(' + degs + 'deg) translateZ(' + newwheel.translation + 'px);');
 				} else {
-					$panel.setAttribute('style', 'transform: rotateY(' + degs + 'deg) translateZ(' + newwheel.translation + 'px); -webkit-transform: rotateY(' + degs + 'deg) translateZ(' + newwheel.translation + 'px); -o-transform: rotateY(' + degs + 'deg) translateZ(' + newwheel.translation + 'px);');
+					panel.setAttribute('style', 'transform: rotateY(' + degs + 'deg) translateZ(' + newwheel.translation + 'px); -webkit-transform: rotateY(' + degs + 'deg) translateZ(' + newwheel.translation + 'px); -o-transform: rotateY(' + degs + 'deg) translateZ(' + newwheel.translation + 'px);');
 				}
-				panelContainer.appendChild($panel);
+				panelContainer.appendChild(panel);
 			});
 			newwheel.element.appendChild(panelContainer);
-			//try and do the behaviour binding after the DOM has been changed. newwheel doesn't seem to matter in Firefox but kicks up a fuss in Chrome.
 			if (newwheel.options.click) {
 				panels = panelContainer.querySelectorAll('.wheel-panel');
 				[].forEach.call(panels, function (clickPanel) {
