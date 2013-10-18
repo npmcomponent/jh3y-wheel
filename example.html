@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>wheel</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="build/build.css">
+	<script src="build/build.js"></script>
+</head>
+<body>
+	<h4>wheel</h4>
+	<p>Here is a simple wheel passing in dom elements via an option.</p>
+	<div class="myWheel"></div>
+	<p>Here is the same wheel just created differently by passing in an already present structure using the panelsContainer option.</p>
+	<div class="mySecondWheel">
+		<div>
+			<div>
+				A
+			</div>
+		</div>
+		<div>
+			<div>
+				B
+			</div>
+		</div>
+		<div>
+			<div>
+				C
+			</div>
+		</div>
+	</div>
+	<button>Roll first wheel.</button>
+
+	<script>
+		var panels = [],
+			panel,
+			panelElement;
+		for (var i = 0; i < 3; i++) {
+			panel = {};
+			panelElement = document.createElement('div');
+			panelElement.innerHTML = (i + 1);
+			panels.push(panel);
+			panel.content = panelElement;
+		};
+		var wheel = require('wheel');
+		var element = document.querySelector('.myWheel');
+		var newwheel = new wheel(element, {
+			panels: panels,
+			width: '100%',
+			height: 140,
+			clip: false,
+			click: true
+		});
+		var tester = new wheel(document.querySelector('.mySecondWheel'), {
+			panelsContainer: true,
+			width: '100%',
+			height: 140,
+			clip: false,
+			click: true
+		});
+		document.querySelector('button').addEventListener('click', function () {
+			newwheel.roll();
+		});
+	</script>
+</body>
+</html>

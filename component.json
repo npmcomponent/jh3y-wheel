@@ -1,0 +1,19 @@
+{
+  "name": "wheel",
+  "repo": "jheytompkins/wheel",
+  "description": "A simple wheel/carousel component.",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+  },
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "wheel.css"
+  ],
+  "remotes": []
+}
