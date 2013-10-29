@@ -372,5 +372,5 @@ require.alias("wheel/index.js", "wheel/index.js");if (typeof exports == "object"
 } else if (typeof define == "function" && define.amd) {
   define(function(){ return require("wheel"); });
 } else {
-  this["jheytompkins-wheel"] = require("wheel");
+  this["wheel"] = require("wheel");
 }})();
