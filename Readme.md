@@ -81,38 +81,46 @@ Of course remembering to include [wheel.css](https://github.com/jheytompkins/whe
 The following options can be used with wheel:
 ####click: true/false
 click navigation.
-		click: true / false
-		width: string px / number
-		height: string px / number
-		clip: true / false (sets an overflow hidden so that nothing is seen outside the panel container)
-		perspective: string px (experimental for setting different perspectives)
-		mouseOver: true / false (not currently supported)
-		panelsContainer: true /false (can be used for a DOM element that already exists containing the right structure.)
-		panels: JSON structure as below 
-			[
-				{
-					value: 1,
-					content: DOMElement
-				},
-				{
-					value: 2,
-					content: DOMElement
-				},
-				{
-					value: 3,
-					content: DOMElement
-				}
-			]
-		verticalAxis: true / false (sets orientation)
+####width: string px / number
+define width.
+####height: string px / number
+define height.
+####clip: true / false
+sets overflow hidden so nothing is visible outside of the panel container.
+####perspective: string px
+sets the css perspective for the wheel animation effect.
+####panelsContainer: true / false
+defines whether the necessary DOM structure is already in place.
+####panels
+when defined, supplies the content for the wheel panels, here is an example;
+	
+	[
+		{
+			value: 1,
+			content: DOMElement
+		},
+		{
+			value: 2,
+			content: DOMElement
+		},
+		{
+			value: 3,
+			content: DOMElement
+		}
+	]
 
-The following methods are also available:
+####verticalAxis: true / false
+sets vertical orientation for the wheel
+###functions
+The following functions are also available
+####roll
+roll the wheel.
+####rollTo(index)
+roll the wheel to a particular index.
 
-	roll() : roll the wheel.
-	rollTo() : roll the wheel to a particular index.
+## contributions 
 
-## Contributions and Suggestions
-
-Are always welcome of course :)
+and suggestions are always welcome of course :)
 
 ## License
 
