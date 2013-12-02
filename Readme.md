@@ -10,7 +10,7 @@ A simple demo of wheel can be seen [here](http://jsfiddle.net/BDJmq/4/).
 
   Install with [component(1)](https://github.com/component/component):
 
-    $ component install jheytompkins/wheel
+    $ component install jh3y/wheel
 
 
 ## use
@@ -25,7 +25,7 @@ If using the `panelsContainer` option, __wheel__ will operate on an already pres
 	</div>
 
 ###use with [component package manager](https://github.com/component/component)
-Include necessary script and style files and simply do something similar to in the [example](https://github.com/jheytompkins/wheel/blob/master/example.html) page:
+Include necessary script and style files and simply do something similar to in the [example](https://github.com/jh3y/wheel/blob/master/example.html) page:
 
 		//here we are simply just creating some mock panels but these could already be in the DOM
 		var panels = [],
@@ -64,7 +64,7 @@ We can create a wheel by passing in the `panelsContainer` option as `true` inste
 
 ###use without component package manager
 
- If you want to use __wheel__ without the component package manager you can by simply adding [wheel.js](https://github.com/jheytompkins/wheel/blob/master/wheel.js) to your script files and using in the following way:
+ If you want to use __wheel__ without the component package manager you can by simply adding [wheel.js](https://github.com/jh3y/wheel/blob/master/wheel.js) to your script files and using in the following way:
 
 	 		var wheel = new wheel(element, {
 	 			panels: panels,
@@ -74,7 +74,7 @@ We can create a wheel by passing in the `panelsContainer` option as `true` inste
 				click: true
 	 		});
 
-Of course remembering to include [wheel.css](https://github.com/jheytompkins/wheel/blob/master/wheel.css).
+Of course remembering to include [wheel.css](https://github.com/jh3y/wheel/blob/master/wheel.css).
 
 ## api
 ###options

@@ -1,5 +1,5 @@
-var jheytompkins = {};
-jheytompkins.wheel = (function (){
+var jh3y = {};
+jh3y.wheel = (function (){
 	var $hours = $('#hours').wheel({
 		panelContainer: true,
 		verticalAxis: true,
@@ -125,4 +125,4 @@ jheytompkins.wheel = (function (){
 		init: init,
 	}
 })();
-$(document).ready(jheytompkins.wheel.init);
+$(document).ready(jh3y.wheel.init);
