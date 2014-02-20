@@ -1,3 +1,4 @@
+*This repository is a mirror of the [component](http://component.io) module [jh3y/wheel](http://github.com/jh3y/wheel). It has been modified to work with NPM+Browserify. You can install it using the command `npm install npmcomponent/jh3y-wheel`. Please do not open issues or send pull requests against this repo. If you have issues with this repo, report it to [npmcomponent](https://github.com/airportyh/npmcomponent).*
 # wheel
 
   A simple wheel/carousel component compatible with [component](https://github.com/component/component) package manager.

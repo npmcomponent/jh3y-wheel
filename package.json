@@ -1,0 +1,12 @@
+{
+  "name": "jh3y-wheel",
+  "description": "A simple wheel/carousel component.",
+  "version": "0.0.1",
+  "keywords": [],
+  "main": "index.js",
+  "styles": [
+    "wheel.css"
+  ],
+  "dependencies": {},
+  "license": "MIT"
+}
